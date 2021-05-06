@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import ShoppingList from "./components/ShoppingList/ShoppingList";
+import Item from "./components/ShoppingItem/ShoppingItem";
+import "./App.css";
+import ShoppingItem from "./components/ShoppingItem/ShoppingItem";
+import { connect } from "react-redux";
 
-function App() {
+function App({ selectedItem }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>
+        <h2>Selected Item</h2>
+        {selectedItem ? (
+          <Item
+            title={selectedItem.title}
+            description={selectedItem.description}
+          />
+        ) : (
+          <span>no item selected</span>
+        )}
+      </div>
+      <div className="App">
+        hello react
+        <ShoppingList />
+        <ShoppingItem />
+      </div>
+    </>
   );
 }
-
-export default App;
+const mapStateToProps = (state) => {
+  return { selectedItem: state.selectItem };
+};
+export default connect(mapStateToProps)(App);
+//connect(mapping object and function)(component)
